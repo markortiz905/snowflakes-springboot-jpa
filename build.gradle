@@ -1,0 +1,48 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.6'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.snowflakes'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	//spring jpa
+	implementation ('org.springframework.boot:spring-boot-starter-data-jpa') {
+		exclude group: 'org.apache.tomcat', module: 'tomcat-jdbc'
+	}
+
+	//snowflakes
+	implementation 'net.snowflake:snowflake-jdbc:3.13.16'
+	implementation 'net.snowflake:snowflake-common:5.1.4'
+
+	//connection pooling
+	implementation 'org.apache.commons:commons-lang3:3.12.0'
+	implementation 'commons-io:commons-io:2.11.0'
+
+	implementation 'com.google.guava:guava:31.1-jre'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
